@@ -1189,7 +1189,9 @@ def add_license(path):
 
     # primary_header.add_blank()
     
-    
+    primary_header[''] = '31-05-24'
+    primary_header[''] = 'Version 1.0'
+
     for x in license_list:
         primary_header[''] = x 
 
