@@ -316,7 +316,7 @@ def separate_same_field_NUV_FUV():
    
 
     
-# separate_same_field_NUV_FUV()
+separate_same_field_NUV_FUV()
 
 
 
@@ -1207,10 +1207,10 @@ def add_license(path):
     # final = fits.HDUList([primary,binary])
     # final.writeto('/Users/swagat98/UVIT-cat.fits',overwrite=True)
 
-sort_filters()
-add_license_removenan('/Users/swagat98/UVIT-cat.fits')
-add_keyword_comment()
-add_license('/Users/swagat98/UVIT-cat.fits')
+# sort_filters()
+# add_license_removenan('/Users/swagat98/UVIT-cat.fits')
+# add_keyword_comment()
+# add_license('/Users/swagat98/UVIT-cat.fits')
 
 
 
