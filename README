@@ -1,3 +1,14 @@
+# UVIT-cat : The raw catalog file that contains all entries of the duplicate sources, before merging
+# UVIT-cat_merged : The merged catalog, having sources that are closer than 3arcsec merged.
+
+
+
+
+
+################ CATALOG PREPARATION SEQUENCE AND SCRIPT CONTENTS ###################
+
+
+
 1. Find_overlapping_images.py -> Find overlapping images (filterwise), from a single main folder
  	- This makes folders for overlapping images filterwise
  	- Any image within 14 arcmin is found out, and moves the nearby images from the main folder to the created folder
@@ -15,3 +26,22 @@
 	- Keep all the files created from the Merged_sources.py into a single folder
 	- Input: Folder path of the files kept in the above step
 	- Output: A final merged single UVIT-cat catalog
+
+
+
+
+# wcs_header.py
+
+	- Creates a folder of fits header files containing the wcs information of the corrected images
+
+
+
+
+# Plot_UVIT.py
+
+	- plots different graphs from the UVIT-catalog files
+
+
+
+
+
