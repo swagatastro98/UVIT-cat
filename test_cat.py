@@ -54,8 +54,10 @@ def test(path):
     df = tabledf.to_pandas()
     print(df.shape)
 
+    # print(pri_hdr.keys)
 
-test('/Users/swagat98/Documents/UVIT-cat/f3mergedtable.fits')
+
+test('/Users/swagat98/Documents/UVIT-cat/UVIT-cat_merged.fits')
 
 
 def add_columns(path):
