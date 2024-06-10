@@ -13,7 +13,8 @@ global path_to_nuv
 global same_field_folder_path
 
 path_to_nuv = '/Users/swagat98/Documents/Combine_cat/NUV-cat/' # path for the FUV files
-path_to_fuv = '/Users/swagat98/Documents/Combine_cat/FUV-cat/' # path for the NUV files
+# path_to_fuv = '/Users/swagat98/Documents/Combine_cat/FUV-cat' # path for the NUV files
+path_to_fuv = '/Users/swagat98/Documents/Combine_cat/close_folder_f1' # path for the NUV files
 same_field_folder_path = '/Users/swagat98/Documents/Combine_cat/Same_field/'  # path where we should create a new same field file
 
 
@@ -316,7 +317,7 @@ def separate_same_field_NUV_FUV():
    
 
     
-separate_same_field_NUV_FUV()
+# separate_same_field_NUV_FUV()
 
 
 
@@ -1207,8 +1208,8 @@ def add_license(path):
     # final = fits.HDUList([primary,binary])
     # final.writeto('/Users/swagat98/UVIT-cat.fits',overwrite=True)
 
-# sort_filters()
-# add_license_removenan('/Users/swagat98/UVIT-cat.fits')
+sort_filters()
+add_license_removenan('/Users/swagat98/UVIT-cat.fits')
 # add_keyword_comment()
 # add_license('/Users/swagat98/UVIT-cat.fits')
 

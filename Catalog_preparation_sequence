@@ -1,0 +1,17 @@
+1. Find_overlapping_images.py -> Find overlapping images (filterwise), from a single main folder
+ 	- This makes folders for overlapping images filterwise
+ 	- Any image within 14 arcmin is found out, and moves the nearby images from the main folder to the created folder
+
+2. Run the UVIT-cat_catalog_combine_NUV_FUV.py script 
+	- Input: Path to the newly created close_folder one by one
+	- This creates a single catalog from each folder (sorted filterwise from the find_overlapping_images.py script), including the duplicate sources.
+
+3. Next, Run Merge_sources.py.
+	- Input: The files created in the UVIT-cat_catalog_combine_NUV_FUV.py script (Try with the images which were found duplicates or overlapping)
+	- This script finds sources within 3 arcsec, and merges these points into a single source.
+	- Output: A filterwise file is created with the duplicate sources merged
+
+4. Merge_all_files.py:
+	- Keep all the files created from the Merged_sources.py into a single folder
+	- Input: Folder path of the files kept in the above step
+	- Output: A final merged single UVIT-cat catalog
