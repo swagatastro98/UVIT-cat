@@ -1,4 +1,5 @@
 
+
 from astropy.io import fits
 import numpy as np
 import pandas as pd
@@ -6,6 +7,7 @@ from astropy import units as u
 from astropy.table import Table
 from astropy.coordinates import SkyCoord
 from astropy.coordinates import Angle
+from glob import glob
 
 def test_cat(path):
 
@@ -142,4 +144,20 @@ def find_filterwise_sources(path):
 
 
 
-find_filterwise_sources('/Users/swagat98/Documents/UVIT-cat/UVIT-cat_merged.fits')
+# find_filterwise_sources('/Users/swagat98/Documents/UVIT-cat/UVIT-cat_merged.fits')
+
+def check_wcs(path):
+
+    files = glob(f'{path}*.fits')
+
+    for x in files:
+
+        img = fits.open(x)
+        img.info()
+
+        hdr = img[0].header
+
+    print(hdr.keys)
+
+
+check_wcs('/Users/swagat98/Documents/UVIT-cat/Corrected_FITS_header/')
