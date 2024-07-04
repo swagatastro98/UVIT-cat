@@ -248,12 +248,12 @@ def count_vs_magnitude_distribution():
 
 
     
-    plt.xlabel('AB Magnitude',fontsize=12)
-    plt.ylabel('Source count',fontsize=12)
-    labels = ['F148W; CaF2-1','F154W; BaF2','F169M; Sapphire','F172M; Silica','F148Wa; CaF2-2']
-    plt.legend(labels,loc='upper left',fontsize='7')
-    plt.yscale('log') #log transformation
-    plt.show()
+    # plt.xlabel('AB Magnitude',fontsize=12)
+    # plt.ylabel('Source count',fontsize=12)
+    # labels = ['F148W; CaF2-1','F154W; BaF2','F169M; Sapphire','F172M; Silica','F148Wa; CaF2-2']
+    # plt.legend(labels,loc='upper left',fontsize='7')
+    # plt.yscale('log') #log transformation
+    # plt.show()
 
 
 
@@ -557,7 +557,7 @@ def separate_same_field_NUV_FUV():
    
 
     
-separate_same_field_NUV_FUV()
+# separate_same_field_NUV_FUV()
 
 
 
@@ -710,7 +710,7 @@ def source_dist_plot():
     # plt.scatter(coords_1.ra.wrap_at('180d').radian,coords_1.dec.radian,s=5,marker='+') 
     #both are projection of galactic plane. One is in icrs format and other is in galactic format
 
-    plt.show()
+    # plt.show()
     
 
 
@@ -1000,7 +1000,7 @@ def mag_vs_magerr():
 
 
 # count_vs_magnitude_distribution()
-source_dist_plot()
+# source_dist_plot()
 # mag_vs_magerr()
 
 
@@ -1096,64 +1096,6 @@ def positional_offset():
     # after separating the images into bins, find the limiting magnitude following the same procedure of magnitude vs magnitude error; 
     # i.e. an errorcut of 0.198 magnitude error.
 
-def exposure_numbercounts():
-
-    path = '/Users/swagat98/Documents/Combine_cat/FUV-cat/*'
-    path2= '/Users/swagat98/Documents/Combine_cat/NUV-cat/*'
-
-    file = glob(path)
-    # print(file)
-    
-    exposure_time = []
-
-    for i in range(len(file)):
-
-        img = fits.open(file[i])
-        
-        data = img[1].data
-        header = img[1].header
-
-        # plot the median exposure time of the images
-        # separate the files into different exposure times
-        # separate the files into three bins based on the exposure times
-        # find the completeness of in the three bins of the images
-
-        exp_time = header['EXP_TIME'] 
-        exposure_time.append(exp_time)
-
-    # print(exposure_time)
-    # print(len(exposure_time))
-
-        # try:
-        #     exposure_time = header['EXP_TIME'] 
-        #     print('exposure time found')
-        # except:
-        #
-        #     print(header['OBJECT'])
-        #     print('Exposure time not found')
-
-    number,bin,patch = plt.hist(exposure_time,bins=100,histtype='step',color='blue')
-    plt.xlim(0,5000)
-
-    first_bin = bin[np.argmax(number)]
-    second_bin = bin[np.argmax(number) + 1]
-    final_bin = (first_bin + second_bin)/2 
-    
-    print(f'The highest exposure time is in: {final_bin}')
-    plt.axvline(final_bin,c='black',linestyle='-')
-    # plt.show()
-
-
-    #now we separate the files into different bins
-    
-    #bin 1: 0-5000
-    #bin 2: 5000-10000
-    #bin 3: 10000
-   
-
-# exposure_numbercounts()
-
-
 def exposure_numbercounts_2():
 
     global bin1
@@ -1161,10 +1103,10 @@ def exposure_numbercounts_2():
     global bin3
 
 
-    path = '/Users/swagat98/Documents/Combine_cat/FUV-cat/*'
-    path2= '/Users/swagat98/Documents/Combine_cat/NUV-cat/*'
+    path = '/Users/swagat98/Documents/Combine_cat_2/FUV-cat/'
+    path2= '/Users/swagat98/Documents/Combine_cat_2/NUV-cat/'
 
-    files = glob( path )
+    files = glob( f'{ path }*.fits' )
 
 
     bin1 = []
@@ -1186,10 +1128,10 @@ def exposure_numbercounts_2():
 
         exposure_time = header['EXP_TIME'] 
     
-        if exposure_time <= 5000:
+        if exposure_time <= 2000:
             bin1.append(files[i])
 
-        if exposure_time > 5000 and exposure_time < 10000:
+        if exposure_time > 2000 and exposure_time < 10000:
             bin2.append(files[i])
 
         if exposure_time > 10000:
@@ -1263,47 +1205,50 @@ def exposure_numbercounts_2():
         exp_time_list_bin3.append(exp_time)
 
 #
-# #for bin1
-#
-    # plt.figure(1)
-    # numb1, binb1, patchb1 = plt.hist(exp_time_list_bin1,bins=47,histtype='step')
-    # plt.xlabel('Exposure time (sec)',fontsize=12)
-    # plt.ylabel('# of fields / 100 sec bin',fontsize=12)
-    # # plt.show()
-    #
-    # first_bin_b1 = binb1[np.argmax(numb1)]
-    # second_bin_b1 = binb1[np.argmax(numb1)+1]
-    # final_bin_b1 = (first_bin_b1 + second_bin_b1)/2
-    # print(f'Highest number of images has exposure time: {final_bin_b1}, that are in bin1')
-    # print('Bins:',binb1)
-    # print(f'Number of b1 bins: {len(binb1)}')
-#     
-#
-# #for bin2
-#
-    # plt.figure(2)
-    # num2, bin2, patch2 = plt.hist(exp_time_list_bin2,bins=24,histtype='step')
-    # plt.xlabel('Exposure time (sec)',fontsize=12)
-    # plt.ylabel('# of fields / 200 sec bin',fontsize=12)
-    # plt.show()
+#for bin1
 
-    # first_bin_b2 = bin2[np.argmax(num2)]
-    # second_bin_b2 = bin2[np.argmax(num2)+1]
-    # final_bin_b2 = (first_bin_b2 + second_bin_b2)/2 
-    # print(f'Highest number of images has exposure time: {final_bin_b2}, that are in bin2')
-    # print('Bins: ',bin2)
-    # print('Number of bins: ',len(bin2))
-
-
-#
-# #3rd bin
-#
-#     plt.figure(3)
-#     num3, bin3, patch3 = plt.hist(exp_time_list_bin3, bins=15, histtype='step')
-#     plt.xlabel('Exposure time (sec)',fontsize=12)
-#     plt.ylabel('# of fields / 2500 sec bin',fontsize=12)
+#     plt.figure(1,figsize=(10,6))
+#     numb1, binb1, patchb1 = plt.hist(exp_time_list_bin1,bins=15,histtype='step',color='blue')
+#     # plt.xlabel('Exposure time (sec)',fontsize=12)
+#     # plt.ylabel('# of fields',fontsize=12)
 #     # plt.show()
+#     #
+#     first_bin_b1 = binb1[np.argmax(numb1)]
+#     second_bin_b1 = binb1[np.argmax(numb1)+1]
+#     final_bin_b1 = (first_bin_b1 + second_bin_b1)/2
+#     print(f'Highest number of images has exposure time: {final_bin_b1}, that are in bin1')
+#     # print('Bins:',binb1)
+#     # print(f'Number of b1 bins: {len(binb1)}')
+# #     
 # #
+# #for bin2
+# #
+#     # plt.figure(2)
+#     num2, bin2, patch2 = plt.hist(exp_time_list_bin2,bins=24,histtype='step',color='blue')
+#     # plt.xlabel('Exposure time (sec)',fontsize=12)
+#     # plt.ylabel('# of fields / 200 sec bin',fontsize=12)
+#     # plt.show()
+
+#     first_bin_b2 = bin2[np.argmax(num2)]
+#     second_bin_b2 = bin2[np.argmax(num2)+1]
+#     final_bin_b2 = (first_bin_b2 + second_bin_b2)/2 
+#     print(f'Highest number of images has exposure time: {final_bin_b2}, that are in bin2')
+#     # print('Bins: ',bin2)
+#     # print('Number of bins: ',len(bin2))
+
+#     plt.axvline(2000,linestyle='-',color='green',linewidth=2)
+#     plt.axvline(10001,linestyle='-',color='red',linewidth=2)
+
+# #
+# # #3rd bin
+# #
+# #     plt.figure(3)
+#     num3, bin3, patch3 = plt.hist(exp_time_list_bin3, bins=15, histtype='step',color='blue')
+#     plt.xlabel('Exposure time (sec)',fontsize=12)
+#     plt.ylabel('# of fields',fontsize=12)
+#     plt.xscale('log')
+#     plt.show()
+# # #
 #     first_bin_b3 = bin3[np.argmax(num3)]
 #     second_bin_b3 = bin3[np.argmax(num3)+1]
 #     final_bin_b3 = (first_bin_b3 + second_bin_b3)/2
@@ -1316,7 +1261,7 @@ def exposure_numbercounts_2():
 
     #now separate the images in the respective bins and find the AB magnitude distributions
 
-    nuvfiles = glob(path2)  
+    nuvfiles = glob(f'{ path2 }*.fits')  
 
 
     nuvexp_time_list = []
@@ -1351,7 +1296,7 @@ def exposure_numbercounts_2():
 
 
 
-# exposure_numbercounts_2()
+exposure_numbercounts_2()
 
 
 def bin_ab_mag_dist():
@@ -1400,16 +1345,20 @@ def bin_ab_mag_dist():
         # num1bin1, bin1bin1, patch1bin1 = plt.hist(f1b1df['MAG_AUTO'],histtype='step',bins = 50,color='black')
 
 
-        # sns.scatterplot(f1b1df,x='MAG_AUTO',y='MAGERR_AUTO',hue='red',size=1)
-        plt.figure(1)
-        plt.scatter(f1b1df['MAG_AUTO'],f1b1df['MAGERR_AUTO'],s=1,color='red')
-        plt.xlabel('Magnitude', fontsize=12)
-        plt.ylabel('Magnitude Error',fontsize=12)
-        plt.legend(['F148W; CaF2-1'],loc='upper left')
+#         # sns.scatterplot(f1b1df,x='MAG_AUTO',y='MAGERR_AUTO',hue='red',size=1)
+#         plt.figure(1)
+        # plt.scatter(f1b1df['MAG_AUTO'],f1b1df['MAGERR_AUTO'],s=1,color='red')
+        # plt.xlabel('Magnitude', fontsize=12)
+        # plt.ylabel('Magnitude Error',fontsize=12)
+        # plt.legend(['F148W; CaF2-1'],loc='upper left')
         # plt.show()
+
+
 
         print('Max f1 bin1',np.max(f1b1df['MAG_AUTO']))
         
+        print('BIN1')
+        # print(f'Highest count in magnitude f1: {bin1bin1[np.argmax(num1bin1)]}')
 
     if len(f2_bin1) == 0:
         print('No data in f2')
@@ -1418,18 +1367,14 @@ def bin_ab_mag_dist():
         f2b1df = f2b1_concat[(f2b1_concat['MAG_AUTO']!=99) & (f2b1_concat['MAGERR_AUTO'] < 0.198)]
         
         # num2bin1,bin2bin1,patch2bin1 = plt.hist(f2b1df['MAG_AUTO'],histtype='step',bins = 50, color='green')
-        # first_falloff = bin2bin1[np.argmax(num2bin1)+5]
-        # second_falloff = bin2bin1[np.argmax(num2bin1)+6]
-        # final_falloff = (first_falloff + second_falloff)/2
-        # print(f'Magnitude limit: {final_falloff}')
-        # plt.axvline(final_falloff,linestyle='-')
-#
-        plt.figure(2)
-        plt.scatter(f2b1df['MAG_AUTO'],f2b1df['MAGERR_AUTO'],s=1,color='blue')
-        plt.xlabel('Magnitude', fontsize=12)
-        plt.ylabel('Magnitude Error',fontsize=12)
-        plt.legend(['F154W; BaF2'],loc = 'upper left')
+# #
+        # plt.figure(2)
+        # plt.scatter(f2b1df['MAG_AUTO'],f2b1df['MAGERR_AUTO'],s=1,color='blue')
+        # plt.xlabel('Magnitude', fontsize=12)
+        # plt.ylabel('Magnitude Error',fontsize=12)
+        # plt.legend(['F154W; BaF2'],loc = 'upper left')
         # plt.show()
+        # print(f'Highest count in magnitude f2: {bin2bin1[np.argmax(num2bin1)]}')
 
         print('Max f2 bin1: ',np.max(f2b1df['MAG_AUTO']))
         
@@ -1438,8 +1383,10 @@ def bin_ab_mag_dist():
     else:
         f3b1_concat = pd.concat(f3_bin1)
         f3b1df      = f3b1_concat[f3b1_concat['MAG_AUTO']!=99]
-
+# 
         # num3bin1, bin3bin1, patch3bin1  = plt.hist(f3b1df['MAG_AUTO'],histtype='step',bins=50,color='purple')
+
+        # print(f"Highest count in magnitude f3: {bin3bin1[np.argmax(num3bin1)]}")
  
 
     if len(f5_bin1) == 0:
@@ -1449,6 +1396,8 @@ def bin_ab_mag_dist():
         f5b1df      = f5b1_concat[f5b1_concat['MAG_AUTO']!=99]
 
         # num5bin1, bin5bin1, patch5bin1 = plt.hist(f5b1df['MAG_AUTO'],histtype='step',bins=50,color='blue')
+
+#         print(f"Highest count in magnitude F5: {bin5bin1[np.argmax(num5bin1)]}")
 
         
 
@@ -1461,18 +1410,20 @@ def bin_ab_mag_dist():
 
         # num7bin1, bin7bin1, patch7bin1  = plt.hist(f7b1df['MAG_AUTO'],histtype='step',bins=50,color='red')
 
-
-        # print(f'Highest source count in: {bin7bin1[np.argmax(num7bin1)]}')
-
-        fuv_legends =['F148W; CaF2-1','F154W; BaF2','F169M; Sapphire','F172M; Silica','F148Wa; CaF2-2']
+#         print(f"Highest count in magnitude F7: {bin7bin1[np.argmax(num7bin1)]}")
 
 
-        # plt.xlim(10,27)
-        # plt.yscale('log')
-        # plt.xlabel('AB Magnitude',fontsize=12)
-        # plt.ylabel('Source count',fontsize=12)
-        # plt.legend(fuv_legends,loc='upper left',fontsize=7)
-        # plt.show()
+# #         # print(f'Highest source count in: {bin7bin1[np.argmax(num7bin1)]}')
+
+#         fuv_legends =['F148W; CaF2-1','F154W; BaF2','F169M; Sapphire','F172M; Silica','F148Wa; CaF2-2']
+
+
+#         plt.xlim(10,27)
+#         plt.yscale('log')
+#         plt.xlabel('AB Magnitude',fontsize=12)
+#         plt.ylabel('Source count',fontsize=12)
+#         plt.legend(fuv_legends,loc='upper left',fontsize=7)
+#         plt.show()
 
 
     # print(len(f1_bin1))
@@ -1480,7 +1431,7 @@ def bin_ab_mag_dist():
     # print(len(f3_bin1))
     # print(len(f5_bin1))
     # print(len(f7_bin1))
-    # 
+#     # 
 
     
     f1_bin2 = []
@@ -1490,8 +1441,8 @@ def bin_ab_mag_dist():
     f7_bin2 = []
 
 
-    # print(bin2)
-    # print(len(bin2))
+# #     # print(bin2)
+# #     # print(len(bin2))
 
 
     for l2 in bin2:
@@ -1517,7 +1468,7 @@ def bin_ab_mag_dist():
         if filter2 == 'F7':
             f7_bin2.append(df)
 
-    # plt.figure(2)
+#     # plt.figure(2)
 
     if len(f1_bin2) == 0:
         print('No data in f1')
@@ -1527,14 +1478,16 @@ def bin_ab_mag_dist():
 
         # num1bin2, bin1bin2, patch1bin2 = plt.hist(f1b2df['MAG_AUTO'],histtype='step',bins=50, color='black')
 
-        plt.figure(3)
-        plt.scatter(f1b2df['MAG_AUTO'],f1b2df['MAGERR_AUTO'],s=1,color='red')
-        plt.xlabel('Magnitude', fontsize=12)
-        plt.ylabel('Magnitude Error',fontsize=12)
-        plt.legend(['F148W; CaF2-1'],loc = 'upper left')
+#         print('BIN 2')
+#         print(f"Highest count in magnitude F1: {bin1bin2[np.argmax(num1bin2)]}")
+# #         plt.figure(3)
+        # plt.scatter(f1b2df['MAG_AUTO'],f1b2df['MAGERR_AUTO'],s=1,color='red')
+        # plt.xlabel('Magnitude', fontsize=12)
+        # plt.ylabel('Magnitude Error',fontsize=12)
+        # plt.legend(['F148W; CaF2-1'],loc = 'upper left')
         # plt.show()
 
-        print('Max f1 bin2: ',np.max(f1b2df['MAG_AUTO']))
+# #         print('Max f1 bin2: ',np.max(f1b2df['MAG_AUTO']))
     if len(f2_bin2) == 0:
         print('No data in f2')
     else:
@@ -1543,15 +1496,17 @@ def bin_ab_mag_dist():
 
         # num2bin2, bin2bin2, patch2bin2 = plt.hist(f2b2df['MAG_AUTO'],histtype='step',bins=50, color='green')
 
-        plt.figure(4)
-        plt.scatter(f2b2df['MAG_AUTO'],f2b2df['MAGERR_AUTO'],s=1,color='blue')
-        plt.xlabel('Magnitude', fontsize=12)
-        plt.ylabel('Magnitude Error',fontsize=12)
-        plt.legend(['F154W; BaF2'],loc = 'upper left')
+#         print(f'Highest count in magnitude F2: {bin2bin2[np.argmax(num2bin2)]}')
+
+# #         plt.figure(4)
+        # plt.scatter(f2b2df['MAG_AUTO'],f2b2df['MAGERR_AUTO'],s=1,color='blue')
+        # plt.xlabel('Magnitude', fontsize=12)
+        # plt.ylabel('Magnitude Error',fontsize=12)
+        # plt.legend(['F154W; BaF2'],loc = 'upper left')
         # plt.show()
 
 
-        print('Max f2 bin2: ',np.max(f2b2df['MAG_AUTO']))
+# #         print('Max f2 bin2: ',np.max(f2b2df['MAG_AUTO']))
 
 
     if len(f3_bin2) == 0:
@@ -1559,8 +1514,10 @@ def bin_ab_mag_dist():
     else:
         f3b2_concat = pd.concat(f3_bin2)
         f3b2df      = f3b2_concat[f3b2_concat['MAG_AUTO']!=99]
-#
+# #
         # num3bin2, bin3bin2, patch3bin2 = plt.hist(f3b2df['MAG_AUTO'], histtype='step',bins=50,color='purple')
+
+#         print(f'Highest count in magnitude F3: {bin3bin2[np.argmax(num3bin2)]}')
  
 
     if len(f5_bin2) == 0:
@@ -1572,6 +1529,9 @@ def bin_ab_mag_dist():
         # num5bin2, bin5bin2, patch5bin2 = plt.hist(f5b2df['MAG_AUTO'],histtype='step',bins=50,color='blue')
 
 
+#         print(f'Highest count in magnitude F5: {bin5bin2[np.argmax(num5bin2)]}')
+
+
     if len(f7_bin2) == 0:
         print('No data in f7')
     else:
@@ -1579,16 +1539,29 @@ def bin_ab_mag_dist():
         f7b2df      = f7b2_concat[f7b2_concat['MAG_AUTO']!=99]
 
         # num7bin2, bin7bin2, patch7bin2 = plt.hist(f7b2df['MAG_AUTO'],histtype='step',bins=50, color='red')
+#         print(f'Highest count in magnitude F7: {bin7bin2[np.argmax(num7bin2)]}')
 
-        # print(f'Max value: {bin7bin2[np.argmax(num7bin2)]}')
+# #         # print(f'Max value: {bin7bin2[np.argmax(num7bin2)]}')
 
-    #plt.yscale('log')
-    #plt.xlabel('AB Magnitude',fontsize=12)
-    #plt.ylabel('Source count',fontsize=12)
-    #plt.legend(fuv_legends,loc='upper left',fontsize=7)
-    # plt.show()
+#     plt.xlim(10,27)
+#     plt.yscale('log')
+#     plt.xlabel('AB Magnitude',fontsize=12)
+#     plt.ylabel('Source count',fontsize=12)
+#     plt.legend(fuv_legends,loc='upper left',fontsize=7)
+#     plt.show()
 
     
+#     # print(len(f1_bin2))
+#     # print(len(f2_bin2))
+#     # print(len(f3_bin2))
+#     # print(len(f5_bin2))
+#     # print(len(f7_bin2))
+
+
+
+
+
+
     f1_bin3 = []
     f2_bin3 = []
     f3_bin3 = []
@@ -1597,7 +1570,7 @@ def bin_ab_mag_dist():
     
 
     for l3 in bin3:
-
+# # 
         file3 = fits.open(l3)
 
         data3 = file3[1].data
@@ -1620,7 +1593,7 @@ def bin_ab_mag_dist():
             f7_bin3.append(df)
 
     
-    plt.figure(3)
+# #     plt.figure(3)
 
     if len(f1_bin3)==0:
         print('No data in f1')
@@ -1630,14 +1603,16 @@ def bin_ab_mag_dist():
 
         # num1bin3, bin1bin3, patch1bin3 = plt.hist(f1b3df['MAG_AUTO'],histtype='step',bins=50,color='black')
 
-        plt.figure(5)
-        plt.scatter(f1b3df['MAG_AUTO'],f1b3df['MAGERR_AUTO'],color='red',s=1)
-        plt.xlabel('Magnitude',fontsize=12)
-        plt.ylabel('Magnitude Error', fontsize=12)
-        plt.legend(['F148W; CaF2-1'],loc='upper left')
-        # plt.show()
+#         print('BIN 3')
+#         print(f'Highest count in magnitude F1: {bin1bin3[np.argmax(num1bin3)]}')
+# #         plt.figure(5)
+        # plt.scatter(f1b3df['MAG_AUTO'],f1b3df['MAGERR_AUTO'],color='red',s=1)
+        # plt.xlabel('Magnitude',fontsize=12)
+        # plt.ylabel('Magnitude Error', fontsize=12)
+        # plt.legend(['F148W; CaF2-1'],loc='upper left')
+#         plt.show()
 
-        print('Max f1 bin3: ',np.max(f1b3df['MAG_AUTO']))
+# # #         print('Max f1 bin3: ',np.max(f1b3df['MAG_AUTO']))
 
 
     if len(f2_bin3)==0:
@@ -1647,21 +1622,25 @@ def bin_ab_mag_dist():
         f2b3df      = f2b3_concat[(f2b3_concat['MAG_AUTO']!=99) & (f2b3_concat['MAGERR_AUTO']<0.198)]
 
         # num2bin3, bin2bin3, patch2bin3 = plt.hist(f2b3df['MAG_AUTO'],histtype='step',bins=50,color='green')
-        plt.figure(6)
-        plt.scatter(f2b3df['MAG_AUTO'],f2b3df['MAGERR_AUTO'],color='blue',s=1)
-        plt.xlabel('Magnitude',fontsize=12)
-        plt.ylabel('Magnitude Error', fontsize=12)
-        plt.legend(['F154W, BaF2'],loc='upper left')
+
+#         print(f'Highest count in magnitude F2: {bin2bin3[np.argmax(num2bin3)]}')
+# #         plt.figure(6)
+        # plt.scatter(f2b3df['MAG_AUTO'],f2b3df['MAGERR_AUTO'],color='blue',s=1)
+        # plt.xlabel('Magnitude',fontsize=12)
+        # plt.ylabel('Magnitude Error', fontsize=12)
+        # plt.legend(['F154W, BaF2'],loc='upper left')
         # plt.show()
 
-        print('Max f2 bin3: ',np.max(f2b3df['MAG_AUTO']))
+# #         print('Max f2 bin3: ',np.max(f2b3df['MAG_AUTO']))
     if len(f3_bin3) == 0:
         print('No data in f3')
     else:
         f3b3_concat = pd.concat(f3_bin3)
         f3b3df      = f3b3_concat[f3b3_concat['MAG_AUTO']!=99]
-
+# 
         # num3bin3, bin3bin3, patch3bin3 = plt.hist(f3b3df['MAG_AUTO'],histtype='step',bins=50,color='purple')
+
+#         print(f'Highest count in magnitude F3: {bin3bin3[np.argmax(num3bin3)]}')
 
 
     if len(f5_bin3) == 0:
@@ -1670,23 +1649,34 @@ def bin_ab_mag_dist():
         f5b3_concat = pd.concat(f5_bin3)
         f5b3df      = f5b3_concat[f5b3_concat['MAG_AUTO']!=99]
 
-        # num5bin3, bin5bin3, patch5bin3 = plt.hist(f5b3df['MAG_AUTO'],histtype='step',bins=50,color='blue')
+        num5bin3, bin5bin3, patch5bin3 = plt.hist(f5b3df['MAG_AUTO'],histtype='step',bins=50,color='blue')
+        # first_falloff = bin5bin3[np.argmax(num5bin3)+9]
+        # second_falloff = bin5bin3[np.argmax(num5bin3)+10]
+        # final_falloff = (first_falloff + second_falloff)/2
+        # print(f'Magnitude limit: {final_falloff}')
+        # plt.axvline(final_falloff,linestyle='-')
+        # plt.show()
+
+#         print(f'Highest count in magnitude F5: {bin5bin3[np.argmax(num5bin3)]}')
 
     if len(f7_bin3) == 0:
         print('No data in f7')
-    else:
-        f7b3_concat = pd.concat(f7_bin3)
-        f7b3df      = f7b3_concat[f7b3_concat['MAG_AUTO']!=99]
+#     else:
+#         f7b3_concat = pd.concat(f7_bin3)
+#         f7b3df      = f7b3_concat[f7b3_concat['MAG_AUTO']!=99]
 
-        # num7bin3, bin7bin3, patch7bin3 = plt.hist(f7b3df['MAG_AUTO'],histtype='step',bins=50,color='red')
+#         num7bin3, bin7bin3, patch7bin3 = plt.hist(f7b3df['MAG_AUTO'],histtype='step',bins=50,color='red')
 
-
-    #plt.yscale('log')
-    #plt.xlabel('AB Magnitude',fontsize=12)
-    #plt.ylabel('Source count',fontsize=12)
-    #plt.legend(fuv_legends,loc='upper left',fontsize=7)
-    # plt.show()
+#         print(f'Highest count in magnitude F7: {bin7bin3[np.argmax(num7bin3)]}')
 
 
-# bin_ab_mag_dist()
+#     plt.xlim(10,29)
+#     plt.yscale('log')
+#     plt.xlabel('AB Magnitude',fontsize=12)
+#     plt.ylabel('Source count',fontsize=12)
+#     plt.legend(fuv_legends,loc='upper left',fontsize=7)
+#     plt.show()
+
+
+bin_ab_mag_dist()
 

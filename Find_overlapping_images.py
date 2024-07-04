@@ -24,6 +24,8 @@ def separation_in_filters():
     
     fuv = glob(f'{ path_to_fuv }*.fits')
 
+    print(fuv)
+
     f1_folder = '/Users/swagat98/Documents/Combine_cat/F1-FUV/'
     f2_folder = '/Users/swagat98/Documents/Combine_cat/F2-FUV/'
     f3_folder = '/Users/swagat98/Documents/Combine_cat/F3-FUV/'
@@ -115,7 +117,7 @@ def separation_in_filters():
 
 
 
-# separation_in_filters()
+separation_in_filters()
 
 
 
@@ -127,7 +129,7 @@ def check_merged():
 
 
 
-    fuv = glob(f'{path_f3}*.fits')
+    fuv = glob(f'{path_f2}*.fits')
     # print(len(fuv))
     nuv = glob(f'{path_to_nuv}*.fits')
 
@@ -252,7 +254,7 @@ def check_merged():
             print('Copying close images')
     #         
             print(obj_names)
-            fuv_copy = f'cp -r {path_f3}{obj_names}* {close_point_folder_f3}'
+            fuv_copy = f'cp -r {path_f2}{obj_names}* {close_point_folder_f2}'
             x = subprocess.run(fuv_copy,shell=True,check=True)
             print('File copied')
         #
@@ -264,7 +266,7 @@ def check_merged():
     for obj_names in same_pointing_images:
         try:
     #         
-            fuv_del = f'rm -r {path_f3}{obj_names}*'
+            fuv_del = f'rm -r {path_f2}{obj_names}*'
             y = subprocess.run(fuv_del,shell=True,check=True)
             print('File deleted')
         except:
@@ -288,4 +290,4 @@ def check_merged():
 
 
 
-check_merged()
+# check_merged()
