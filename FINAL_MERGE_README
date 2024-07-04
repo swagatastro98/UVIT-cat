@@ -1,0 +1,60 @@
+FINAL_MERGE_README
+
+
+# merged function
+
+There has to be two folders: FUV-cat and NUV-cat, 
+There has to be a copy of the FUV-cat folder.
+
+The program searches one by one from the main FUV-cat folder, and searching in the copied FUV-cat folder
+
+The file that is searching will be deleted from the second folder
+
+	If a match is found, then it will copied to the FUV-same folder inside the Same_field folder, 
+
+	If it is not a match, then the files from the second FUV-cat folder will be copied to the test folder.
+
+
+dataframe_build2():
+
+	A copy of the FUV-same folder will be created
+
+	The same procedure for searching is followed.
+
+	The procedure first deletes the searching file from the second folder so that the same file is not found while searching the list again and doesn't create two files.
+
+	The files are matched, and a single dataframe is created in the combined catalog folder
+	A copy of the files found match in the FUV_same_copy folder is transferred to the N folder.
+
+	The catalog_combined folder contains the combined database of the merged files from the FUV_same folder
+
+	This follows the convention of renaming of the column names according to the paper.
+
+
+
+merged_sources()
+
+	The files from the merged sources are searched iteratively.
+	The coorinates are matched to within 3arcsec, the magntiude columns of the matched coordinates are transferred to a main row
+	Output is created in the Merged_folder
+
+
+
+
+dataframe_build3()
+
+	
+	Matched NUV files are contained in the NUV_ssame folder, this is matched with the files in the test folder containing the rest FUV files. 
+
+	A merged catalog in the NUV_output folder is created according to file names
+
+	And the matched files of the test folder is transferred to the FUV_folder_after_NUV_match folder (to be excluded)
+
+dataframe_build4()
+
+	The remaining matches from the NUV_same folder is matched with the files in the merged_catalog folder and the informatin of the NUV files are transferred to the FUV files.
+
+
+
+
+
